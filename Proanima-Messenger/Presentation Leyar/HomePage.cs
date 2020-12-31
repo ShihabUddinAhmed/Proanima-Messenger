@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proanima_Messenger.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,19 @@ namespace Proanima_Messenger.Presentation_Leyar
 {
     public partial class HomePage : Form
     {
-        public HomePage()
+        User user;
+        Form back;
+        public HomePage(User user, Form back)
         {
             InitializeComponent();
+            this.user = user;
+            this.back = back;
+            nameLabel.Text = "Welcome " + user.Name;
+        }
+
+        private void HomePage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

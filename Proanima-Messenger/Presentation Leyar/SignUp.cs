@@ -54,17 +54,14 @@ namespace Proanima_Messenger
                             if (maleRadioButton.Checked)
                             {
                                 sql = "INSERT INTO Users(Name,UserName,Password,ProfilePicture,DoB,Gender,Email,PhoneNumber,BloodGroup) VALUES('" + nameTextBox.Text + "','" + userNameTextBox.Text + "','" + passwordTextBox.Text + "',@image,'" + dOBDateTimePicker.Text + "','" + maleRadioButton.Text + "','" + emailTextBox.Text + "','" + contactNumberTextBox.Text + "','" + bloodGroupComboBox.Text + "')";
-
                             }
                             else if (femaleRadioButton.Checked)
                             {
                                 sql = "INSERT INTO Users(Name,UserName,Password,ProfilePicture,DoB,Gender,Email,PhoneNumber,BloodGroup) VALUES('" + nameTextBox.Text + "','" + userNameTextBox.Text + "','" + passwordTextBox.Text + "',@image,'" + dOBDateTimePicker.Text + "','" + femaleRadioButton.Text + "','" + emailTextBox.Text + "','" + contactNumberTextBox.Text + "','" + bloodGroupComboBox.Text + "')";
-
                             }
                             else
                             {
                                 sql = "INSERT INTO Users(Name,UserName,Password,ProfilePicture,DoB,Gender,Email,PhoneNumber,BloodGroup) VALUES('" + nameTextBox.Text + "','" + userNameTextBox.Text + "','" + passwordTextBox.Text + "',@image,'" + dOBDateTimePicker.Text + "','" + othersRadioButton.Text + "','" + emailTextBox.Text + "','" + contactNumberTextBox.Text + "','" + bloodGroupComboBox.Text + "')";
-
                             }
                             FileStream filestream = new FileStream(imageLocation, FileMode.Open, FileAccess.Read);
                             BinaryReader binaryreader = new BinaryReader(filestream);

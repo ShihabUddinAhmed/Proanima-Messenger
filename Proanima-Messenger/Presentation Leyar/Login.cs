@@ -1,8 +1,11 @@
-﻿using Proanima_Messenger.Presentation_Leyar;
+﻿using Proanima_Messenger.Data_Access_Layar;
+using Proanima_Messenger.Entities;
+using Proanima_Messenger.Presentation_Leyar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -34,24 +37,24 @@ namespace Proanima_Messenger
         {
             if (userNameTextBox.Text != string.Empty && passwordTextBox.Text != string.Empty)
             {
-                //string sql = "SELECT * FROM Users WHERE UserName='" + userNameTextBox.Text + "'AND Password='" + passwordTextBox.Text + "'";
-                //SqlDataReader sqlDataReader;
-                //try
-                //{
-                //    DataAccess dataAccess = new DataAccess();
-                //    sqlDataReader = dataAccess.GetData(sql);
-                //    sqlDataReader.Read();
-                //    int id = (int)sqlDataReader["id"];
-                //    //User user = new User(id, sqlDataReader["Name"].ToString(), sqlDataReader["UserName"].ToString(), sqlDataReader["Email"].ToString(), sqlDataReader["Password"].ToString(), sqlDataReader["DOB"].ToString(), sqlDataReader["Gender"].ToString(), sqlDataReader["BloodGroup"].ToString());
-                //    HomePage homePage = new HomePage();
-                //    homePage.Show();
-                //    this.Hide();
-                //}
-                //catch (Exception ex)
-                //{
-                //    string msg = ex.Message;
-                //    MessageBox.Show("Invalid UserName or Password!\nPlease Try Again...");
-                //}
+                string sql = "SELECT * FROM Users WHERE UserName='" + userNameTextBox.Text + "'AND Password='" + passwordTextBox.Text + "'";
+                SqlDataReader sqlDataReader;
+                try
+                {
+                    DataAccess dataAccess = new DataAccess();
+                    sqlDataReader = dataAccess.GetData(sql);
+                    sqlDataReader.Read();
+                    int id = (int)sqlDataReader["UserID"];
+                    User user = new User(id, sqlDataReader["Name"].ToString(), sqlDataReader["UserName"].ToString(), sqlDataReader["Password"].ToString(), (byte[])sqlDataReader["ProfilePicture"], sqlDataReader["DoB"].ToString(), sqlDataReader["Gender"].ToString(), sqlDataReader["Email"].ToString(), sqlDataReader["PhoneNumber"].ToString(), sqlDataReader["BloodGroup"].ToString());
+                    HomePage homePage = new HomePage(user, this);
+                    homePage.Show();
+                    this.Hide();
+                }
+                catch (Exception ex)
+                {
+                    string msg = ex.Message;
+                    MessageBox.Show("Invalid UserName or Password!\nPlease Try Again...");
+                }
             }
             else
             {
