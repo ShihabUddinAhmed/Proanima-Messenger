@@ -1,9 +1,9 @@
 ﻿
 using System;
 
-namespace Proanima_Messenger
+namespace Proanima_Messenger.Presentation_Leyar
 {
-    partial class SignUp
+    partial class Profile
     {
         /// <summary>
         /// Required designer variable.
@@ -31,9 +31,10 @@ namespace Proanima_Messenger
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignUp));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Profile));
+            this.changePhotoButton = new System.Windows.Forms.Button();
+            this.profilePictureBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.agreementCheckBox = new System.Windows.Forms.CheckBox();
             this.bloodGroupComboBox = new System.Windows.Forms.ComboBox();
             this.bloodGroupLabel = new System.Windows.Forms.Label();
             this.dOBDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -46,28 +47,48 @@ namespace Proanima_Messenger
             this.contactNumberLabel = new System.Windows.Forms.Label();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.emailLabel = new System.Windows.Forms.Label();
-            this.confirmPasswordLabel = new System.Windows.Forms.Label();
-            this.confirmPasswordTextBox = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
-            this.passwordLabel = new System.Windows.Forms.Label();
             this.userNameLabel = new System.Windows.Forms.Label();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.userNameTextBox = new System.Windows.Forms.TextBox();
-            this.registerButton = new System.Windows.Forms.Button();
-            this.profilePictureBox = new System.Windows.Forms.PictureBox();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.registrationLabel = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
-            this.uploadPhotoButton = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.saveChangesButton = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.profileLabel = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.changePasswordButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // changePhotoButton
+            // 
+            this.changePhotoButton.BackColor = System.Drawing.Color.Indigo;
+            this.changePhotoButton.Font = new System.Drawing.Font("Nirmala UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changePhotoButton.ForeColor = System.Drawing.Color.White;
+            this.changePhotoButton.Location = new System.Drawing.Point(236, 196);
+            this.changePhotoButton.Name = "changePhotoButton";
+            this.changePhotoButton.Size = new System.Drawing.Size(178, 57);
+            this.changePhotoButton.TabIndex = 30;
+            this.changePhotoButton.Text = "Change Photo";
+            this.changePhotoButton.UseVisualStyleBackColor = false;
+            this.changePhotoButton.Click += new System.EventHandler(this.changePhotoButton_Click);
+            // 
+            // profilePictureBox
+            // 
+            this.profilePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("profilePictureBox.Image")));
+            this.profilePictureBox.Location = new System.Drawing.Point(12, 100);
+            this.profilePictureBox.Name = "profilePictureBox";
+            this.profilePictureBox.Size = new System.Drawing.Size(218, 216);
+            this.profilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.profilePictureBox.TabIndex = 29;
+            this.profilePictureBox.TabStop = false;
+            this.profilePictureBox.Click += new System.EventHandler(this.profilePictureBox_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Indigo;
-            this.panel1.Controls.Add(this.agreementCheckBox);
             this.panel1.Controls.Add(this.bloodGroupComboBox);
             this.panel1.Controls.Add(this.bloodGroupLabel);
             this.panel1.Controls.Add(this.dOBDateTimePicker);
@@ -80,30 +101,14 @@ namespace Proanima_Messenger
             this.panel1.Controls.Add(this.contactNumberLabel);
             this.panel1.Controls.Add(this.emailTextBox);
             this.panel1.Controls.Add(this.emailLabel);
-            this.panel1.Controls.Add(this.confirmPasswordLabel);
-            this.panel1.Controls.Add(this.confirmPasswordTextBox);
             this.panel1.Controls.Add(this.nameLabel);
             this.panel1.Controls.Add(this.nameTextBox);
-            this.panel1.Controls.Add(this.passwordLabel);
             this.panel1.Controls.Add(this.userNameLabel);
-            this.panel1.Controls.Add(this.passwordTextBox);
             this.panel1.Controls.Add(this.userNameTextBox);
-            this.panel1.Location = new System.Drawing.Point(12, 216);
+            this.panel1.Location = new System.Drawing.Point(12, 322);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1098, 510);
-            this.panel1.TabIndex = 0;
-            // 
-            // agreementCheckBox
-            // 
-            this.agreementCheckBox.AutoSize = true;
-            this.agreementCheckBox.Font = new System.Drawing.Font("Nirmala UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.agreementCheckBox.ForeColor = System.Drawing.Color.Red;
-            this.agreementCheckBox.Location = new System.Drawing.Point(27, 468);
-            this.agreementCheckBox.Name = "agreementCheckBox";
-            this.agreementCheckBox.Size = new System.Drawing.Size(311, 27);
-            this.agreementCheckBox.TabIndex = 25;
-            this.agreementCheckBox.Text = "I agree to the Terms of Privacy Policy";
-            this.agreementCheckBox.UseVisualStyleBackColor = true;
+            this.panel1.Size = new System.Drawing.Size(1098, 379);
+            this.panel1.TabIndex = 28;
             // 
             // bloodGroupComboBox
             // 
@@ -118,7 +123,7 @@ namespace Proanima_Messenger
             "O-",
             "AB+",
             "AB-"});
-            this.bloodGroupComboBox.Location = new System.Drawing.Point(270, 417);
+            this.bloodGroupComboBox.Location = new System.Drawing.Point(270, 313);
             this.bloodGroupComboBox.Name = "bloodGroupComboBox";
             this.bloodGroupComboBox.Size = new System.Drawing.Size(799, 36);
             this.bloodGroupComboBox.TabIndex = 24;
@@ -128,7 +133,7 @@ namespace Proanima_Messenger
             this.bloodGroupLabel.AutoSize = true;
             this.bloodGroupLabel.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bloodGroupLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.bloodGroupLabel.Location = new System.Drawing.Point(21, 420);
+            this.bloodGroupLabel.Location = new System.Drawing.Point(21, 316);
             this.bloodGroupLabel.Name = "bloodGroupLabel";
             this.bloodGroupLabel.Size = new System.Drawing.Size(226, 28);
             this.bloodGroupLabel.TabIndex = 23;
@@ -137,21 +142,19 @@ namespace Proanima_Messenger
             // dOBDateTimePicker
             // 
             this.dOBDateTimePicker.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dOBDateTimePicker.Location = new System.Drawing.Point(271, 367);
-            this.dOBDateTimePicker.MaxDate = new System.DateTime(2020, 12, 1, 0, 0, 0, 0);
+            this.dOBDateTimePicker.Location = new System.Drawing.Point(271, 263);
+            this.dOBDateTimePicker.MaxDate = new System.DateTime(2020, 12, 18, 0, 0, 0, 0);
             this.dOBDateTimePicker.Name = "dOBDateTimePicker";
             this.dOBDateTimePicker.Size = new System.Drawing.Size(798, 34);
             this.dOBDateTimePicker.TabIndex = 22;
             this.dOBDateTimePicker.Value = new System.DateTime(2020, 12, 1, 0, 0, 0, 0);
-            this.dOBDateTimePicker.MaxDate = DateTime.Today.AddDays(-15);
-
             // 
             // dOBLabel
             // 
             this.dOBLabel.AutoSize = true;
             this.dOBLabel.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dOBLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.dOBLabel.Location = new System.Drawing.Point(23, 372);
+            this.dOBLabel.Location = new System.Drawing.Point(23, 268);
             this.dOBLabel.Name = "dOBLabel";
             this.dOBLabel.Size = new System.Drawing.Size(223, 28);
             this.dOBLabel.TabIndex = 21;
@@ -162,7 +165,7 @@ namespace Proanima_Messenger
             this.othersRadioButton.AutoSize = true;
             this.othersRadioButton.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.othersRadioButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.othersRadioButton.Location = new System.Drawing.Point(643, 319);
+            this.othersRadioButton.Location = new System.Drawing.Point(643, 215);
             this.othersRadioButton.Name = "othersRadioButton";
             this.othersRadioButton.Size = new System.Drawing.Size(96, 32);
             this.othersRadioButton.TabIndex = 20;
@@ -175,7 +178,7 @@ namespace Proanima_Messenger
             this.femaleRadioButton.AutoSize = true;
             this.femaleRadioButton.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.femaleRadioButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.femaleRadioButton.Location = new System.Drawing.Point(452, 319);
+            this.femaleRadioButton.Location = new System.Drawing.Point(452, 215);
             this.femaleRadioButton.Name = "femaleRadioButton";
             this.femaleRadioButton.Size = new System.Drawing.Size(100, 32);
             this.femaleRadioButton.TabIndex = 19;
@@ -188,7 +191,7 @@ namespace Proanima_Messenger
             this.maleRadioButton.AutoSize = true;
             this.maleRadioButton.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maleRadioButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.maleRadioButton.Location = new System.Drawing.Point(271, 319);
+            this.maleRadioButton.Location = new System.Drawing.Point(271, 215);
             this.maleRadioButton.Name = "maleRadioButton";
             this.maleRadioButton.Size = new System.Drawing.Size(80, 32);
             this.maleRadioButton.TabIndex = 18;
@@ -201,7 +204,7 @@ namespace Proanima_Messenger
             this.genderLabel.AutoSize = true;
             this.genderLabel.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.genderLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.genderLabel.Location = new System.Drawing.Point(23, 321);
+            this.genderLabel.Location = new System.Drawing.Point(23, 217);
             this.genderLabel.Name = "genderLabel";
             this.genderLabel.Size = new System.Drawing.Size(223, 28);
             this.genderLabel.TabIndex = 17;
@@ -210,7 +213,7 @@ namespace Proanima_Messenger
             // contactNumberTextBox
             // 
             this.contactNumberTextBox.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contactNumberTextBox.Location = new System.Drawing.Point(270, 266);
+            this.contactNumberTextBox.Location = new System.Drawing.Point(270, 162);
             this.contactNumberTextBox.Name = "contactNumberTextBox";
             this.contactNumberTextBox.Size = new System.Drawing.Size(799, 34);
             this.contactNumberTextBox.TabIndex = 16;
@@ -220,7 +223,7 @@ namespace Proanima_Messenger
             this.contactNumberLabel.AutoSize = true;
             this.contactNumberLabel.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contactNumberLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.contactNumberLabel.Location = new System.Drawing.Point(23, 269);
+            this.contactNumberLabel.Location = new System.Drawing.Point(23, 165);
             this.contactNumberLabel.Name = "contactNumberLabel";
             this.contactNumberLabel.Size = new System.Drawing.Size(221, 28);
             this.contactNumberLabel.TabIndex = 15;
@@ -229,7 +232,7 @@ namespace Proanima_Messenger
             // emailTextBox
             // 
             this.emailTextBox.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.emailTextBox.Location = new System.Drawing.Point(271, 216);
+            this.emailTextBox.Location = new System.Drawing.Point(271, 112);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(798, 34);
             this.emailTextBox.TabIndex = 14;
@@ -239,31 +242,11 @@ namespace Proanima_Messenger
             this.emailLabel.AutoSize = true;
             this.emailLabel.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emailLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.emailLabel.Location = new System.Drawing.Point(23, 219);
+            this.emailLabel.Location = new System.Drawing.Point(23, 115);
             this.emailLabel.Name = "emailLabel";
             this.emailLabel.Size = new System.Drawing.Size(222, 28);
             this.emailLabel.TabIndex = 13;
             this.emailLabel.Text = "E-Mail                        :";
-            // 
-            // confirmPasswordLabel
-            // 
-            this.confirmPasswordLabel.AutoSize = true;
-            this.confirmPasswordLabel.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.confirmPasswordLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.confirmPasswordLabel.Location = new System.Drawing.Point(22, 167);
-            this.confirmPasswordLabel.Name = "confirmPasswordLabel";
-            this.confirmPasswordLabel.Size = new System.Drawing.Size(223, 28);
-            this.confirmPasswordLabel.TabIndex = 12;
-            this.confirmPasswordLabel.Text = "Confirm Password      :";
-            // 
-            // confirmPasswordTextBox
-            // 
-            this.confirmPasswordTextBox.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.confirmPasswordTextBox.Location = new System.Drawing.Point(270, 164);
-            this.confirmPasswordTextBox.Name = "confirmPasswordTextBox";
-            this.confirmPasswordTextBox.PasswordChar = '⚫';
-            this.confirmPasswordTextBox.Size = new System.Drawing.Size(799, 34);
-            this.confirmPasswordTextBox.TabIndex = 11;
             // 
             // nameLabel
             // 
@@ -284,17 +267,6 @@ namespace Proanima_Messenger
             this.nameTextBox.Size = new System.Drawing.Size(799, 34);
             this.nameTextBox.TabIndex = 9;
             // 
-            // passwordLabel
-            // 
-            this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.passwordLabel.Location = new System.Drawing.Point(21, 117);
-            this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(225, 28);
-            this.passwordLabel.TabIndex = 8;
-            this.passwordLabel.Text = "Password                    :";
-            // 
             // userNameLabel
             // 
             this.userNameLabel.AutoSize = true;
@@ -306,15 +278,6 @@ namespace Proanima_Messenger
             this.userNameLabel.TabIndex = 7;
             this.userNameLabel.Text = "User Name                 :";
             // 
-            // passwordTextBox
-            // 
-            this.passwordTextBox.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordTextBox.Location = new System.Drawing.Point(270, 114);
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.PasswordChar = '⚫';
-            this.passwordTextBox.Size = new System.Drawing.Size(799, 34);
-            this.passwordTextBox.TabIndex = 6;
-            // 
             // userNameTextBox
             // 
             this.userNameTextBox.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -323,96 +286,101 @@ namespace Proanima_Messenger
             this.userNameTextBox.Size = new System.Drawing.Size(799, 34);
             this.userNameTextBox.TabIndex = 5;
             // 
-            // registerButton
-            // 
-            this.registerButton.BackColor = System.Drawing.Color.Indigo;
-            this.registerButton.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.registerButton.ForeColor = System.Drawing.Color.White;
-            this.registerButton.Location = new System.Drawing.Point(949, 740);
-            this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(161, 49);
-            this.registerButton.TabIndex = 7;
-            this.registerButton.Text = "Register";
-            this.registerButton.UseVisualStyleBackColor = false;
-            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
-            // 
-            // profilePictureBox
-            // 
-            this.profilePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("profilePictureBox.Image")));
-            this.profilePictureBox.Location = new System.Drawing.Point(932, 12);
-            this.profilePictureBox.Name = "profilePictureBox";
-            this.profilePictureBox.Size = new System.Drawing.Size(178, 198);
-            this.profilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.profilePictureBox.TabIndex = 8;
-            this.profilePictureBox.TabStop = false;
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
-            // 
-            // registrationLabel
-            // 
-            this.registrationLabel.AutoSize = true;
-            this.registrationLabel.Font = new System.Drawing.Font("Nirmala UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.registrationLabel.ForeColor = System.Drawing.Color.Indigo;
-            this.registrationLabel.Location = new System.Drawing.Point(3, 31);
-            this.registrationLabel.Name = "registrationLabel";
-            this.registrationLabel.Size = new System.Drawing.Size(362, 54);
-            this.registrationLabel.TabIndex = 25;
-            this.registrationLabel.Text = "Registration Form";
-            // 
             // backButton
             // 
             this.backButton.BackColor = System.Drawing.Color.Indigo;
             this.backButton.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.ForeColor = System.Drawing.Color.White;
-            this.backButton.Location = new System.Drawing.Point(768, 740);
+            this.backButton.Location = new System.Drawing.Point(717, 733);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(161, 49);
-            this.backButton.TabIndex = 26;
+            this.backButton.TabIndex = 32;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = false;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // uploadPhotoButton
+            // saveChangesButton
             // 
-            this.uploadPhotoButton.BackColor = System.Drawing.Color.Indigo;
-            this.uploadPhotoButton.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uploadPhotoButton.ForeColor = System.Drawing.Color.White;
-            this.uploadPhotoButton.Location = new System.Drawing.Point(727, 162);
-            this.uploadPhotoButton.Name = "uploadPhotoButton";
-            this.uploadPhotoButton.Size = new System.Drawing.Size(202, 48);
-            this.uploadPhotoButton.TabIndex = 27;
-            this.uploadPhotoButton.Text = "Upload Photo";
-            this.uploadPhotoButton.UseVisualStyleBackColor = false;
-            this.uploadPhotoButton.Click += new System.EventHandler(this.uploadPhotoButton_Click);
+            this.saveChangesButton.BackColor = System.Drawing.Color.Indigo;
+            this.saveChangesButton.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveChangesButton.ForeColor = System.Drawing.Color.White;
+            this.saveChangesButton.Location = new System.Drawing.Point(884, 733);
+            this.saveChangesButton.Name = "saveChangesButton";
+            this.saveChangesButton.Size = new System.Drawing.Size(226, 49);
+            this.saveChangesButton.TabIndex = 31;
+            this.saveChangesButton.Text = "Save Changes";
+            this.saveChangesButton.UseVisualStyleBackColor = false;
+            this.saveChangesButton.Click += new System.EventHandler(this.saveChangesButton_Click);
             // 
-            // SignUp
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Indigo;
+            this.panel2.Controls.Add(this.profileLabel);
+            this.panel2.Location = new System.Drawing.Point(-6, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1137, 82);
+            this.panel2.TabIndex = 33;
+            // 
+            // profileLabel
+            // 
+            this.profileLabel.AutoSize = true;
+            this.profileLabel.Font = new System.Drawing.Font("Nirmala UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.profileLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.profileLabel.Location = new System.Drawing.Point(37, 15);
+            this.profileLabel.Name = "profileLabel";
+            this.profileLabel.Size = new System.Drawing.Size(145, 54);
+            this.profileLabel.TabIndex = 26;
+            this.profileLabel.Text = "Profile";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // changePasswordButton
+            // 
+            this.changePasswordButton.BackColor = System.Drawing.Color.Indigo;
+            this.changePasswordButton.Font = new System.Drawing.Font("Nirmala UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changePasswordButton.ForeColor = System.Drawing.Color.White;
+            this.changePasswordButton.Location = new System.Drawing.Point(236, 259);
+            this.changePasswordButton.Name = "changePasswordButton";
+            this.changePasswordButton.Size = new System.Drawing.Size(178, 57);
+            this.changePasswordButton.TabIndex = 34;
+            this.changePasswordButton.Text = "Change Password";
+            this.changePasswordButton.UseVisualStyleBackColor = false;
+            this.changePasswordButton.Click += new System.EventHandler(this.changePasswordButton_Click);
+            // 
+            // Profile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1122, 811);
-            this.Controls.Add(this.uploadPhotoButton);
+            this.Controls.Add(this.changePasswordButton);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.backButton);
-            this.Controls.Add(this.registrationLabel);
+            this.Controls.Add(this.saveChangesButton);
+            this.Controls.Add(this.changePhotoButton);
             this.Controls.Add(this.profilePictureBox);
-            this.Controls.Add(this.registerButton);
             this.Controls.Add(this.panel1);
-            this.Name = "SignUp";
+            this.Name = "Profile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Sign Up";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SignUp_FormClosing);
+            this.Text = "Profile";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Profile_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Button changePhotoButton;
+        private System.Windows.Forms.PictureBox profilePictureBox;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox bloodGroupComboBox;
+        private System.Windows.Forms.Label bloodGroupLabel;
         private System.Windows.Forms.DateTimePicker dOBDateTimePicker;
         private System.Windows.Forms.Label dOBLabel;
         private System.Windows.Forms.RadioButton othersRadioButton;
@@ -423,22 +391,15 @@ namespace Proanima_Messenger
         private System.Windows.Forms.Label contactNumberLabel;
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Label emailLabel;
-        private System.Windows.Forms.Label confirmPasswordLabel;
-        private System.Windows.Forms.TextBox confirmPasswordTextBox;
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.TextBox nameTextBox;
-        private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label userNameLabel;
-        private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.TextBox userNameTextBox;
-        private System.Windows.Forms.ComboBox bloodGroupComboBox;
-        private System.Windows.Forms.Label bloodGroupLabel;
-        private System.Windows.Forms.Button registerButton;
-        private System.Windows.Forms.PictureBox profilePictureBox;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.Label registrationLabel;
         private System.Windows.Forms.Button backButton;
-        private System.Windows.Forms.Button uploadPhotoButton;
-        private System.Windows.Forms.CheckBox agreementCheckBox;
+        private System.Windows.Forms.Button saveChangesButton;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label profileLabel;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button changePasswordButton;
     }
 }

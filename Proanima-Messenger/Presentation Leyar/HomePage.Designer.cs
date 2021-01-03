@@ -29,16 +29,19 @@ namespace Proanima_Messenger.Presentation_Leyar
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.nameLabel = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.accountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.storyPictureBox = new System.Windows.Forms.PictureBox();
+            this.createStoryButton = new System.Windows.Forms.Button();
+            this.storyLabel = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.storyPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -84,14 +87,53 @@ namespace Proanima_Messenger.Presentation_Leyar
             // profileToolStripMenuItem
             // 
             this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            this.profileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.profileToolStripMenuItem.Text = "Profile";
+            this.profileToolStripMenuItem.Click += new System.EventHandler(this.profileToolStripMenuItem_Click);
             // 
             // logOutToolStripMenuItem
             // 
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.logOutToolStripMenuItem.Text = "Log Out";
+            this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
+            // 
+            // storyPictureBox
+            // 
+            this.storyPictureBox.Location = new System.Drawing.Point(22, 147);
+            this.storyPictureBox.Name = "storyPictureBox";
+            this.storyPictureBox.Size = new System.Drawing.Size(432, 587);
+            this.storyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.storyPictureBox.TabIndex = 2;
+            this.storyPictureBox.TabStop = false;
+            // 
+            // createStoryButton
+            // 
+            this.createStoryButton.BackColor = System.Drawing.Color.Indigo;
+            this.createStoryButton.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createStoryButton.ForeColor = System.Drawing.Color.White;
+            this.createStoryButton.Location = new System.Drawing.Point(460, 685);
+            this.createStoryButton.Name = "createStoryButton";
+            this.createStoryButton.Size = new System.Drawing.Size(196, 49);
+            this.createStoryButton.TabIndex = 33;
+            this.createStoryButton.Text = "Create Story";
+            this.createStoryButton.UseVisualStyleBackColor = false;
+            this.createStoryButton.Click += new System.EventHandler(this.createStoryButton_Click);
+            // 
+            // storyLabel
+            // 
+            this.storyLabel.AutoSize = true;
+            this.storyLabel.Font = new System.Drawing.Font("Nirmala UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.storyLabel.ForeColor = System.Drawing.Color.Indigo;
+            this.storyLabel.Location = new System.Drawing.Point(15, 106);
+            this.storyLabel.Name = "storyLabel";
+            this.storyLabel.Size = new System.Drawing.Size(173, 38);
+            this.storyLabel.TabIndex = 34;
+            this.storyLabel.Text = "Story Name";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
             // 
             // HomePage
             // 
@@ -99,15 +141,20 @@ namespace Proanima_Messenger.Presentation_Leyar
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1122, 811);
+            this.Controls.Add(this.storyLabel);
+            this.Controls.Add(this.createStoryButton);
+            this.Controls.Add(this.storyPictureBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip);
             this.Name = "HomePage";
-            this.Text = "HomePage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = " ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HomePage_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.storyPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,6 +168,9 @@ namespace Proanima_Messenger.Presentation_Leyar
         private System.Windows.Forms.ToolStripMenuItem accountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox storyPictureBox;
+        private System.Windows.Forms.Button createStoryButton;
+        private System.Windows.Forms.Label storyLabel;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
