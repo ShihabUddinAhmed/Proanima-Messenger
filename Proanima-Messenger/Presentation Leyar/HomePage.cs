@@ -19,6 +19,8 @@ namespace Proanima_Messenger.Presentation_Leyar
         string imageLocation = string.Empty;
         User user;
         Form back;
+        List<Story> storiesLoaded;
+        int counter = 0;
         public HomePage(User user, Form back)
         {
             InitializeComponent();
@@ -83,6 +85,327 @@ namespace Proanima_Messenger.Presentation_Leyar
                     MessageBox.Show("Error uploading! Try again!");
                 }
             }
+        }
+
+        private void HomePage_Load(object sender, EventArgs e)
+        {
+            this.LoadRequests();
+            this.LoadConnections();
+            storiesLoaded = this.StoryLoad();
+            this.ShowStory(counter);
+            storyTimer.Start();
+        }
+
+        public List<Story> StoryLoad()
+        {
+            List<Story> stories = new List<Story>();
+            List<PublicProfile> users = LoadConnections();
+            try
+            {
+                for (int i = 0; i < users.Count; i++)
+                {
+                    PublicProfile publicProfile = users.ElementAt<PublicProfile>(i);
+                    string sql = "SELECT UserID FROM Users WHERE UserName='" + publicProfile.UserName + "'";
+                    DataAccess dataAccess = new DataAccess();
+                    SqlDataReader sqlDataReader = dataAccess.GetData(sql);
+                    sqlDataReader.Read();
+                    string sqlStory = "SELECT * FROM Stories WHERE UserID=" + (int)sqlDataReader["UserID"];
+                    DataAccess dataAccess1 = new DataAccess();
+                    SqlDataReader sqlDataReader1 = dataAccess1.GetData(sqlStory);
+                    while (sqlDataReader1.Read())
+                    {
+                        string date = sqlDataReader1["StoryDate"].ToString();
+                        DateTime dateTime = Convert.ToDateTime(date);
+                        TimeSpan timeSpan = DateTime.Now.Subtract(dateTime);
+                        if (timeSpan.Days < 1)
+                        {
+                            Story story = new Story((int)sqlDataReader1["StoryID"], (byte[])sqlDataReader1["StoryImage"], date, publicProfile.Name);
+                            stories.Add(story);
+                        }
+                        
+                    }
+                    dataAccess.CloseConnection();
+                    dataAccess1.CloseConnection();
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Connection Error!");
+            }
+            return stories;
+        }
+
+        public void LoadRequests()
+        {
+            List<PublicProfile> users = new List<PublicProfile>();
+            try
+            {
+                string sql = "SELECT UserID FROM Connections WHERE Status = 'PENDING' AND ConnectionID = " + user.UserID;
+                DataAccess dataAccess = new DataAccess();
+                SqlDataReader sqlDataReader = dataAccess.GetData(sql);
+                while (sqlDataReader.Read())
+                {
+                    string sqlUser = "SELECT Name,UserName,ProfilePicture,Gender FROM Users WHERE UserID=" + (int)sqlDataReader["UserID"];
+                    DataAccess dataAccess1 = new DataAccess();
+                    SqlDataReader sqlDataReader1 = dataAccess1.GetData(sqlUser);
+                    sqlDataReader1.Read();
+                    PublicProfile user = new PublicProfile(sqlDataReader1["Name"].ToString(), sqlDataReader1["UserName"].ToString(), (byte[])sqlDataReader1["ProfilePicture"], sqlDataReader1["Gender"].ToString());
+                    users.Add(user);
+                    dataAccess1.CloseConnection();
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Source Not Found!");
+            }
+            requestDataGridView.DataSource = users;
+        }
+
+        public List<PublicProfile> LoadConnections()
+        {
+            List<PublicProfile> users = new List<PublicProfile>();
+            try
+            {
+                string sql = "SELECT UserID,ConnectionID FROM Connections WHERE Status = 'ACTIVE' AND (ConnectionID = " + user.UserID + " OR UserID = " + user.UserID + ")";
+                DataAccess dataAccess = new DataAccess();
+                SqlDataReader sqlDataReader = dataAccess.GetData(sql);
+                while (sqlDataReader.Read())
+                {
+                    int tempID = (int)sqlDataReader["UserID"];
+                    int tempID2 = (int)sqlDataReader["ConnectionID"];
+                    if (tempID!=user.UserID)
+                    {
+                        string sqlUser = "SELECT Name,UserName,ProfilePicture,Gender FROM Users WHERE UserID=" + tempID;
+                        DataAccess dataAccess1 = new DataAccess();
+                        SqlDataReader sqlDataReader1 = dataAccess1.GetData(sqlUser);
+                        sqlDataReader1.Read();
+                        PublicProfile user = new PublicProfile(sqlDataReader1["Name"].ToString(), sqlDataReader1["UserName"].ToString(), (byte[])sqlDataReader1["ProfilePicture"], sqlDataReader1["Gender"].ToString());
+                        users.Add(user);
+                        dataAccess1.CloseConnection();
+                    }
+                    else if(tempID2!=user.UserID)
+                    {
+                        string sqlUser = "SELECT Name,UserName,ProfilePicture,Gender FROM Users WHERE UserID=" + tempID2;
+                        DataAccess dataAccess1 = new DataAccess();
+                        SqlDataReader sqlDataReader1 = dataAccess1.GetData(sqlUser);
+                        sqlDataReader1.Read();
+                        PublicProfile user = new PublicProfile(sqlDataReader1["Name"].ToString(), sqlDataReader1["UserName"].ToString(), (byte[])sqlDataReader1["ProfilePicture"], sqlDataReader1["Gender"].ToString());
+                        users.Add(user);
+                        dataAccess1.CloseConnection();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Source Not Found!");
+            }
+            connectionsDataGridView.DataSource = users;
+            return users;
+        }
+
+        public List<PublicProfile> GetUserForSearch(string userName)
+        {
+            List<PublicProfile> users = new List<PublicProfile>();
+            try
+            {
+                string sql = "SELECT Name,UserName,ProfilePicture,Gender FROM Users WHERE Name LIKE '%" + userName + "%' AND UserID <>" + user.UserID;
+                DataAccess dataAccess = new DataAccess();
+                SqlDataReader sqlDataReader = dataAccess.GetData(sql);
+                while (sqlDataReader.Read())
+                {
+                    PublicProfile user = new PublicProfile(sqlDataReader["Name"].ToString(), sqlDataReader["UserName"].ToString(), (byte[])sqlDataReader["ProfilePicture"], sqlDataReader["Gender"].ToString());
+                    users.Add(user);
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Source Not Found!");
+            }
+            return users;
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if(searchTextBox.Text!="")
+            {
+                searchDataGridView.DataSource = GetUserForSearch(searchTextBox.Text);
+            }
+            else
+            {
+                searchDataGridView.DataSource = null;
+            }
+        }
+
+        private void searchDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string userName = (string)searchDataGridView.Rows[e.RowIndex].Cells[1].Value;
+            requestTextBox.Text = userName;
+        }
+
+        private void requestButton_Click(object sender, EventArgs e)
+        {
+            if(requestTextBox.Text!=string.Empty)
+            {
+                try
+                {
+                    string sql = "SELECT UserID FROM Users WHERE UserName ='" + requestTextBox.Text + "'";
+                    DataAccess dataAccess = new DataAccess();
+                    SqlDataReader reader = dataAccess.GetData(sql);
+                    reader.Read();
+                    int uID = (int)reader["UserID"];
+                    dataAccess.CloseConnection();
+                    string sqlCheck = "SELECT ConnectionID FROM Connections WHERE UserID=" + user.UserID;
+                    DataAccess dataAccess2 = new DataAccess();
+                    SqlDataReader readerCheck = dataAccess2.GetData(sqlCheck);
+                    bool flagReq = false;
+                    while(readerCheck.Read())
+                    {
+                        if (uID == (int)readerCheck["ConnectionID"])
+                        {
+                            flagReq = true;
+                        }
+                    }
+                    dataAccess2.CloseConnection();
+                    if (flagReq == false)
+                    {
+                        string sqlAcc = "SELECT UserID FROM Connections WHERE ConnectionID=" + user.UserID;
+                        DataAccess dataAccess3 = new DataAccess();
+                        SqlDataReader readerAcc = dataAccess3.GetData(sqlAcc);
+                        bool flagAcc = false;
+                        while (readerAcc.Read())
+                        {
+                            if (uID == (int)readerAcc["UserID"])
+                            {
+                                flagAcc = true;
+                            }
+                        }
+                        dataAccess3.CloseConnection();
+                        if (flagAcc == false)
+                        {
+                            string sqlConnection = "INSERT INTO Connections(UserID,ConnectionID,Status) VALUES(" + user.UserID + "," + uID + ",'PENDING')";
+                            DataAccess dataAccess1 = new DataAccess();
+                            int result = dataAccess1.ExecuteQuery(sqlConnection);
+                            if (result > 0)
+                            {
+                                MessageBox.Show("Request sent!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Request Cannot Sent!\n\nPlease Try Again!");
+                            }
+                            dataAccess1.CloseConnection();
+                        }
+                        else
+                        {
+                            string sqlConnection = "UPDATE Connections SET Status = 'ACTIVE' WHERE UserID=" + uID + " AND ConnectionID=" + user.UserID;
+                            DataAccess dataAccess4 = new DataAccess();
+                            int result = dataAccess4.ExecuteQuery(sqlConnection);
+                            if (result > 0)
+                            {
+                                MessageBox.Show("Request Accepted!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Request Cannot Sent!\n\nPlease Try Again!");
+                            }
+                            dataAccess4.CloseConnection();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Requested Already!");
+                    }
+                }
+                catch(Exception exc)
+                {
+                    MessageBox.Show("Data Source Error!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select A User First...");
+            }
+        }
+
+        private void requestDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string userName = (string)requestDataGridView.Rows[e.RowIndex].Cells[1].Value;
+            acceptTextBox.Text = userName;
+        }
+
+        private void connectionsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string userName = (string)connectionsDataGridView.Rows[e.RowIndex].Cells[1].Value;
+            messageTextBox.Text = userName;
+        }
+
+        private void acceptButton_Click(object sender, EventArgs e)
+        {
+            if (acceptTextBox.Text != string.Empty)
+            {
+                try
+                {
+                    string sqlID = "SELECT UserID FROM Users WHERE UserName='" + acceptTextBox.Text + "'";
+                    DataAccess dataAccess1 = new DataAccess();
+                    SqlDataReader sqlDataReader = dataAccess1.GetData(sqlID);
+                    sqlDataReader.Read();
+                    int uID = (int)sqlDataReader["UserID"];
+                    dataAccess1.CloseConnection();
+                    string sqlConnection = "UPDATE Connections SET Status = 'ACTIVE' WHERE UserID=" + uID + " AND ConnectionID=" + user.UserID;
+                    DataAccess dataAccess = new DataAccess();
+                    int result = dataAccess.ExecuteQuery(sqlConnection);
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Request Accepted!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Request Cannot Sent!\n\nPlease Try Again!");
+                    }
+                    dataAccess.CloseConnection();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Connection Error!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select A Request First...");
+            }
+        }
+
+        public void ShowStory(int index)
+        {
+            if (index >= 0 && index < storiesLoaded.Count)
+            {
+                byte[] loadedStory = storiesLoaded.ElementAt<Story>(index).StoryImage;
+                string name = storiesLoaded.ElementAt<Story>(index).Name;
+                if (loadedStory != null)
+                {
+                    MemoryStream memoryStream = new MemoryStream(loadedStory);
+                    storyPictureBox.Image = Image.FromStream(memoryStream);
+                    storyLabel.Text = name + "'s Story";
+                }
+            }
+        }
+        
+        private void storyTimer_Tick(object sender, EventArgs e)
+        {
+            counter++;
+            if (counter>=0 && counter<storiesLoaded.Count)
+            {
+                this.ShowStory(counter);
+            }
+            else
+            {
+                counter = 0;
+            }
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            HomePage_Load(sender, e);
         }
     }
 }

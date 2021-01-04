@@ -29,6 +29,7 @@ namespace Proanima_Messenger
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Proanima));
             this.loginButton = new System.Windows.Forms.Button();
             this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
@@ -36,6 +37,8 @@ namespace Proanima_Messenger
             this.passwordLabel = new System.Windows.Forms.Label();
             this.dontHaveAccountLabel = new System.Windows.Forms.Label();
             this.signUpButton = new System.Windows.Forms.Button();
+            this.logoPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // loginButton
@@ -111,12 +114,23 @@ namespace Proanima_Messenger
             this.signUpButton.UseVisualStyleBackColor = false;
             this.signUpButton.Click += new System.EventHandler(this.signUpButton_Click);
             // 
+            // logoPictureBox
+            // 
+            this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
+            this.logoPictureBox.Location = new System.Drawing.Point(71, 78);
+            this.logoPictureBox.Name = "logoPictureBox";
+            this.logoPictureBox.Size = new System.Drawing.Size(422, 339);
+            this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logoPictureBox.TabIndex = 7;
+            this.logoPictureBox.TabStop = false;
+            // 
             // Proanima
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(568, 811);
+            this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.signUpButton);
             this.Controls.Add(this.dontHaveAccountLabel);
             this.Controls.Add(this.passwordLabel);
@@ -125,10 +139,12 @@ namespace Proanima_Messenger
             this.Controls.Add(this.userNameTextBox);
             this.Controls.Add(this.loginButton);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.MaximizeBox = false;
             this.Name = "Proanima";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Proanima Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Proanima_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,6 +159,7 @@ namespace Proanima_Messenger
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label dontHaveAccountLabel;
         private System.Windows.Forms.Button signUpButton;
+        private System.Windows.Forms.PictureBox logoPictureBox;
     }
 }
 

@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data Access Layar\DataAccess.cs" />
+    <Compile Include="Entities\PublicProfile.cs" />
+    <Compile Include="Entities\Story.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Presentation Leyar\HomePage.cs">
       <SubType>Form</SubType>
