@@ -138,13 +138,11 @@ namespace Proanima_Messenger
             // 
             this.dOBDateTimePicker.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dOBDateTimePicker.Location = new System.Drawing.Point(271, 367);
-            this.dOBDateTimePicker.MaxDate = new System.DateTime(2020, 12, 1, 0, 0, 0, 0);
+            this.dOBDateTimePicker.MaxDate = new System.DateTime(2020, 12, 22, 0, 0, 0, 0);
             this.dOBDateTimePicker.Name = "dOBDateTimePicker";
             this.dOBDateTimePicker.Size = new System.Drawing.Size(798, 34);
             this.dOBDateTimePicker.TabIndex = 22;
             this.dOBDateTimePicker.Value = new System.DateTime(2020, 12, 1, 0, 0, 0, 0);
-            this.dOBDateTimePicker.MaxDate = DateTime.Today.AddDays(-15);
-
             // 
             // dOBLabel
             // 
@@ -233,6 +231,7 @@ namespace Proanima_Messenger
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(798, 34);
             this.emailTextBox.TabIndex = 14;
+            this.emailTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.emailTextBox_KeyDown);
             // 
             // emailLabel
             // 
@@ -264,6 +263,7 @@ namespace Proanima_Messenger
             this.confirmPasswordTextBox.PasswordChar = '⚫';
             this.confirmPasswordTextBox.Size = new System.Drawing.Size(799, 34);
             this.confirmPasswordTextBox.TabIndex = 11;
+            this.confirmPasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.confirmPasswordTextBox_KeyDown);
             // 
             // nameLabel
             // 
@@ -283,6 +283,7 @@ namespace Proanima_Messenger
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(799, 34);
             this.nameTextBox.TabIndex = 9;
+            this.nameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameTextBox_KeyDown);
             // 
             // passwordLabel
             // 
@@ -314,6 +315,7 @@ namespace Proanima_Messenger
             this.passwordTextBox.PasswordChar = '⚫';
             this.passwordTextBox.Size = new System.Drawing.Size(799, 34);
             this.passwordTextBox.TabIndex = 6;
+            this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passwordTextBox_KeyDown);
             // 
             // userNameTextBox
             // 
@@ -322,6 +324,7 @@ namespace Proanima_Messenger
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(799, 34);
             this.userNameTextBox.TabIndex = 5;
+            this.userNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.userNameTextBox_KeyDown);
             // 
             // registerButton
             // 

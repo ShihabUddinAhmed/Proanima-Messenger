@@ -19,6 +19,7 @@ namespace Proanima_Messenger
         public Proanima()
         {
             InitializeComponent();
+            userNameTextBox.Focus();
         }
 
         private void Proanima_FormClosing(object sender, FormClosingEventArgs e)
@@ -46,6 +47,7 @@ namespace Proanima_Messenger
                     sqlDataReader.Read();
                     int id = (int)sqlDataReader["UserID"];
                     User user = new User(id, sqlDataReader["Name"].ToString(), sqlDataReader["UserName"].ToString(), sqlDataReader["Password"].ToString(), (byte[])sqlDataReader["ProfilePicture"], sqlDataReader["DoB"].ToString(), sqlDataReader["Gender"].ToString(), sqlDataReader["Email"].ToString(), sqlDataReader["PhoneNumber"].ToString(), sqlDataReader["BloodGroup"].ToString());
+                    dataAccess.CloseConnection();
                     HomePage homePage = new HomePage(user, this);
                     homePage.Show();
                     this.Hide();
@@ -62,6 +64,22 @@ namespace Proanima_Messenger
             }
             userNameTextBox.Text = string.Empty;
             passwordTextBox.Text = string.Empty;
+        }
+
+        private void userNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                passwordTextBox.Focus();
+            }
+        }
+
+        private void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                loginButton.PerformClick();
+            }
         }
     }
 }

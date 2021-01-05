@@ -21,6 +21,7 @@ namespace Proanima_Messenger
         {
             InitializeComponent();
             this.back = back;
+            nameTextBox.Focus();
         }
 
         private void SignUp_FormClosing(object sender, FormClosingEventArgs e)
@@ -113,6 +114,46 @@ namespace Proanima_Messenger
             {
                 profilePictureBox.Image = Image.FromFile(openFileDialog.FileName);
                 imageLocation = openFileDialog.FileName.ToString();
+            }
+        }
+
+        private void nameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                userNameTextBox.Focus();
+            }
+        }
+
+        private void userNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                passwordTextBox.Focus();
+            }
+        }
+
+        private void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                confirmPasswordTextBox.Focus();
+            }
+        }
+
+        private void confirmPasswordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                emailTextBox.Focus();
+            }
+        }
+
+        private void emailTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                contactNumberTextBox.Focus();
             }
         }
     }

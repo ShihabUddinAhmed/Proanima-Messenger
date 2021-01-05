@@ -40,6 +40,7 @@ namespace Proanima_Messenger.Communication_Layer
             InitializeComponent();
             this.user = user;
             this.back = back;
+            sendTextBox.Focus();
         }
 
         public string GetLocalIP()
@@ -71,6 +72,7 @@ namespace Proanima_Messenger.Communication_Layer
                     socket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointRemote, new AsyncCallback(MessageCallBack), buffer);
                     connectionStatus = "Connected";
                     connectButton.Text = "Connected";
+                    sendTextBox.Focus();
                 }
             }
             catch(Exception exc)
@@ -85,13 +87,43 @@ namespace Proanima_Messenger.Communication_Layer
             Application.Exit();
         }
 
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            socket.Dispose();
+            back.DeleteChat();
+            back.StartAllTimer();
+            this.Hide();
+            back.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            socket.Dispose();
+            Application.Exit();
+        }
+
         private void sendButton_Click(object sender, EventArgs e)
         {
-            ASCIIEncoding aSCIIEncoding = new ASCIIEncoding();
-            byte[] sendingMessage = aSCIIEncoding.GetBytes(sendTextBox.Text);
-            socket.Send(sendingMessage);
-            messageListBox.Items.Add(user.Name + ": " + sendTextBox.Text);
-            sendTextBox.Text = string.Empty;
+            try
+            {
+                if (connectButton.Text == "Connected")
+                {
+                    ASCIIEncoding aSCIIEncoding = new ASCIIEncoding();
+                    byte[] sendingMessage = aSCIIEncoding.GetBytes(sendTextBox.Text);
+                    socket.Send(sendingMessage);
+                    messageListBox.Items.Add(user.Name + ": " + sendTextBox.Text);
+                    sendTextBox.Text = string.Empty;
+                    sendTextBox.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Click on Connect First...");
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Connection Error!");
+            }
         }
 
         private void ChattingWindow_Load(object sender, EventArgs e)

@@ -115,6 +115,7 @@ namespace Proanima_Messenger.Presentation_Leyar
                     SqlDataReader sqlDataReader = dataAccess.GetData(sql);
                     sqlDataReader.Read();
                     string sqlStory = "SELECT * FROM Stories WHERE UserID=" + (int)sqlDataReader["UserID"];
+                    dataAccess.CloseConnection();
                     DataAccess dataAccess1 = new DataAccess();
                     SqlDataReader sqlDataReader1 = dataAccess1.GetData(sqlStory);
                     while (sqlDataReader1.Read())
@@ -129,7 +130,6 @@ namespace Proanima_Messenger.Presentation_Leyar
                         }
                         
                     }
-                    dataAccess.CloseConnection();
                     dataAccess1.CloseConnection();
                 }
             }
@@ -158,6 +158,7 @@ namespace Proanima_Messenger.Presentation_Leyar
                     users.Add(user);
                     dataAccess1.CloseConnection();
                 }
+                dataAccess.CloseConnection();
             }
             catch (Exception exc)
             {
@@ -199,6 +200,7 @@ namespace Proanima_Messenger.Presentation_Leyar
                         dataAccess1.CloseConnection();
                     }
                 }
+                dataAccess.CloseConnection();
             }
             catch (Exception exc)
             {
@@ -221,6 +223,7 @@ namespace Proanima_Messenger.Presentation_Leyar
                     PublicProfile user = new PublicProfile(sqlDataReader["Name"].ToString(), sqlDataReader["UserName"].ToString(), (byte[])sqlDataReader["ProfilePicture"], sqlDataReader["Gender"].ToString());
                     users.Add(user);
                 }
+                dataAccess.CloseConnection();
             }
             catch(Exception exc)
             {
@@ -420,6 +423,7 @@ namespace Proanima_Messenger.Presentation_Leyar
                 string sql = "DELETE FROM MessageAlert WHERE Requestor='" + user.UserName + "'";
                 DataAccess dataAccess = new DataAccess();
                 dataAccess.ExecuteQuery(sql);
+                dataAccess.CloseConnection();
             }
             catch(Exception exc)
             {
@@ -471,11 +475,12 @@ namespace Proanima_Messenger.Presentation_Leyar
                                 chattingWindow.LocalPort = (int)sqlDataReaderG["APort"];
                                 chattingWindow.RemotePort = (int)sqlDataReaderG["RPort"];
                                 chattingWindow.SetProfilePicture(picture);
+                                dataAccessG.CloseConnection();
+                                StopAllTimer();
                                 chattingWindow.Show();
                                 this.Hide();
                             }
                         }
-                        dataAccessG.CloseConnection();
                     }
                     else
                     {
@@ -485,7 +490,6 @@ namespace Proanima_Messenger.Presentation_Leyar
                         dataAccess3.CloseConnection();
                         this.Hide();
                     }
-                    dataAccess1.CloseConnection();
                 }
             }
             catch(Exception exc)
@@ -531,8 +535,14 @@ namespace Proanima_Messenger.Presentation_Leyar
                 SqlDataReader sqlDataReader = dataAccess.GetData(sql);
                 if (sqlDataReader.Read())
                 {
-
-                    string sqlPic = "SELECT ProfilePicture FROM Users WHERE UserName='" + sqlDataReader["Acceptor"].ToString() + "'";
+                    string acceptorUser = sqlDataReader["Acceptor"].ToString();
+                    string aName = sqlDataReader["AcceptorName"].ToString();
+                    string rIP = sqlDataReader["RequestorIP"].ToString();
+                    string aIP = sqlDataReader["AcceptorIP"].ToString();
+                    int rPort = (int)sqlDataReader["RPort"];
+                    int aPort = (int)sqlDataReader["APort"];
+                    dataAccess.CloseConnection();
+                    string sqlPic = "SELECT ProfilePicture FROM Users WHERE UserName='" + acceptorUser + "'";
                     DataAccess dataAccessP = new DataAccess();
                     SqlDataReader sqlDataReaderP = dataAccessP.GetData(sqlPic);
                     sqlDataReaderP.Read();
@@ -540,22 +550,36 @@ namespace Proanima_Messenger.Presentation_Leyar
                     dataAccessP.CloseConnection();
                     if (chattingWindow!=null)
                     {
-                        chattingWindow.ReceiverName(sqlDataReader["AcceptorName"].ToString());
-                        chattingWindow.LocalUser = sqlDataReader["RequestorIP"].ToString();
-                        chattingWindow.RemoteUser = sqlDataReader["AcceptorIP"].ToString();
-                        chattingWindow.LocalPort = (int)sqlDataReader["RPort"];
-                        chattingWindow.RemotePort = (int)sqlDataReader["APort"];
+                        chattingWindow.ReceiverName(aName);
+                        chattingWindow.LocalUser = rIP;
+                        chattingWindow.RemoteUser = aIP;
+                        chattingWindow.LocalPort = rPort;
+                        chattingWindow.RemotePort = aPort;
                         chattingWindow.SetProfilePicture(picture);
+                        StopAllTimer();
                         chattingWindow.Show();
                         this.Hide();
                     }
                 }
-                dataAccess.CloseConnection();
             }
             catch (Exception exc)
             {
                 MessageBox.Show("Database Connection Error!");
             }
+        }
+
+        public void StartAllTimer()
+        {
+            messageCheckTimer.Start();
+            messageTimer.Start();
+            storyTimer.Start();
+        }
+
+        public void StopAllTimer()
+        {
+            messageCheckTimer.Stop();
+            messageTimer.Stop();
+            storyTimer.Stop();
         }
     }
 }

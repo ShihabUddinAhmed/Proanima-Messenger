@@ -61,6 +61,7 @@ namespace Proanima_Messenger
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(351, 34);
             this.userNameTextBox.TabIndex = 1;
+            this.userNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.userNameTextBox_KeyDown);
             // 
             // passwordTextBox
             // 
@@ -70,6 +71,7 @@ namespace Proanima_Messenger
             this.passwordTextBox.PasswordChar = '⚫';
             this.passwordTextBox.Size = new System.Drawing.Size(351, 34);
             this.passwordTextBox.TabIndex = 2;
+            this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passwordTextBox_KeyDown);
             // 
             // userNameLabel
             // 
