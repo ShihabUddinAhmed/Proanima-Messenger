@@ -1,4 +1,5 @@
-﻿using Proanima_Messenger.Data_Access_Layar;
+﻿using Proanima_Messenger.Communication_Layer;
+using Proanima_Messenger.Data_Access_Layar;
 using Proanima_Messenger.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Proanima_Messenger.Presentation_Leyar
         Form back;
         List<Story> storiesLoaded;
         int counter = 0;
+        ChattingWindow chattingWindow;
         public HomePage(User user, Form back)
         {
             InitializeComponent();
@@ -31,7 +33,8 @@ namespace Proanima_Messenger.Presentation_Leyar
 
         private void HomePage_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            DeleteChat();
+            logOutToolStripMenuItem.PerformClick();
         }
 
         private void profileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -89,6 +92,8 @@ namespace Proanima_Messenger.Presentation_Leyar
 
         private void HomePage_Load(object sender, EventArgs e)
         {
+            messageCheckTimer.Start();
+            messageTimer.Start();
             this.LoadRequests();
             this.LoadConnections();
             storiesLoaded = this.StoryLoad();
@@ -406,6 +411,151 @@ namespace Proanima_Messenger.Presentation_Leyar
         private void refreshButton_Click(object sender, EventArgs e)
         {
             HomePage_Load(sender, e);
+        }
+
+        public void DeleteChat()
+        {
+            try
+            {
+                string sql = "DELETE FROM MessageAlert WHERE Requestor='" + user.UserName + "'";
+                DataAccess dataAccess = new DataAccess();
+                dataAccess.ExecuteQuery(sql);
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Database Connection Error!");
+            }
+        }
+
+        private void messageCheckTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                string sql = "SELECT * FROM MessageAlert WHERE Status = 'PENDING' AND Acceptor='" + user.UserName + "'";
+                DataAccess dataAccess = new DataAccess();
+                SqlDataReader sqlDataReader = dataAccess.GetData(sql);
+                if (sqlDataReader.Read())
+                {
+                    int messageID = (int)sqlDataReader["MessageID"];
+                    string rName = sqlDataReader["RequestorName"].ToString();
+                    string userN = sqlDataReader["Requestor"].ToString();
+                    dataAccess.CloseConnection();
+                    string sqlA = "UPDATE MessageAlert SET Status='REQUESTED' WHERE MessageID=" + messageID;
+                    DataAccess dataAccess1 = new DataAccess();
+                    dataAccess1.ExecuteQuery(sqlA);
+                    dataAccess1.CloseConnection();
+                    DialogResult dialogResult = MessageBox.Show(rName + " wants to chat with you...\n\nDo you want to Chat now?", "Chat Request", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if(dialogResult==DialogResult.Yes)
+                    {
+                        chattingWindow = new ChattingWindow(user, this);
+                        string sqlPic = "SELECT ProfilePicture FROM Users WHERE UserName='" + userN + "'";
+                        DataAccess dataAccessP = new DataAccess();
+                        SqlDataReader sqlDataReaderP = dataAccessP.GetData(sqlPic);
+                        sqlDataReaderP.Read();
+                        byte[] picture = (byte[])sqlDataReaderP["ProfilePicture"];
+                        dataAccessP.CloseConnection();
+                        string sqlC = "UPDATE MessageAlert SET Status='ACTIVE', AcceptorName='"+user.Name+"', AcceptorIP='"+chattingWindow.GetLocalIP()+"' WHERE MessageID=" + messageID;
+                        DataAccess dataAccess2 = new DataAccess();
+                        dataAccess2.ExecuteQuery(sqlC);
+                        dataAccess2.CloseConnection();
+                        string sqlGet = "SELECT * FROM MessageAlert WHERE MessageID=" + messageID;
+                        DataAccess dataAccessG = new DataAccess();
+                        SqlDataReader sqlDataReaderG = dataAccessG.GetData(sqlGet);
+                        if (sqlDataReaderG.Read())
+                        {
+                            if (chattingWindow != null)
+                            {
+                                chattingWindow.ReceiverName(sqlDataReaderG["RequestorName"].ToString());
+                                chattingWindow.LocalUser = sqlDataReaderG["AcceptorIP"].ToString();
+                                chattingWindow.RemoteUser = sqlDataReaderG["RequestorIP"].ToString();
+                                chattingWindow.LocalPort = (int)sqlDataReaderG["APort"];
+                                chattingWindow.RemotePort = (int)sqlDataReaderG["RPort"];
+                                chattingWindow.SetProfilePicture(picture);
+                                chattingWindow.Show();
+                                this.Hide();
+                            }
+                        }
+                        dataAccessG.CloseConnection();
+                    }
+                    else
+                    {
+                        string sqlC = "UPDATE MessageAlert SET Status='REJECTED' WHERE MessageID=" + messageID;
+                        DataAccess dataAccess3 = new DataAccess();
+                        dataAccess3.ExecuteQuery(sqlC);
+                        dataAccess3.CloseConnection();
+                        this.Hide();
+                    }
+                    dataAccess1.CloseConnection();
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Database Connection Error!"+exc.Message);
+            }
+        }
+
+        private void messageButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (messageTextBox.Text != string.Empty)
+                {
+                    chattingWindow = new ChattingWindow(user, this);
+                    string ip = chattingWindow.GetLocalIP();
+                    string sql = "INSERT INTO MessageAlert(RequestorName,Requestor,Acceptor,RequestorIP) VALUES('" + user.Name + "','" + user.UserName + "','" + messageTextBox.Text + "','" + ip + "')";
+                    DataAccess dataAccess = new DataAccess();
+                    int result = dataAccess.ExecuteQuery(sql);
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Message Request Sent!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry, Request Couldn't Sent!");
+                    }
+                    dataAccess.CloseConnection();
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Database Connection Error!");
+            }
+        }
+
+        private void messageTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                string sql = "SELECT * FROM MessageAlert WHERE Status = 'ACTIVE' AND Requestor='" + user.UserName + "'";
+                DataAccess dataAccess = new DataAccess();
+                SqlDataReader sqlDataReader = dataAccess.GetData(sql);
+                if (sqlDataReader.Read())
+                {
+
+                    string sqlPic = "SELECT ProfilePicture FROM Users WHERE UserName='" + sqlDataReader["Acceptor"].ToString() + "'";
+                    DataAccess dataAccessP = new DataAccess();
+                    SqlDataReader sqlDataReaderP = dataAccessP.GetData(sqlPic);
+                    sqlDataReaderP.Read();
+                    byte[] picture = (byte[])sqlDataReaderP["ProfilePicture"];
+                    dataAccessP.CloseConnection();
+                    if (chattingWindow!=null)
+                    {
+                        chattingWindow.ReceiverName(sqlDataReader["AcceptorName"].ToString());
+                        chattingWindow.LocalUser = sqlDataReader["RequestorIP"].ToString();
+                        chattingWindow.RemoteUser = sqlDataReader["AcceptorIP"].ToString();
+                        chattingWindow.LocalPort = (int)sqlDataReader["RPort"];
+                        chattingWindow.RemotePort = (int)sqlDataReader["APort"];
+                        chattingWindow.SetProfilePicture(picture);
+                        chattingWindow.Show();
+                        this.Hide();
+                    }
+                }
+                dataAccess.CloseConnection();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Database Connection Error!");
+            }
         }
     }
 }

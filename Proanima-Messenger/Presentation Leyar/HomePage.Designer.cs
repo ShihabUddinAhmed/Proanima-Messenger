@@ -59,6 +59,8 @@ namespace Proanima_Messenger.Presentation_Leyar
             this.connectionsDataGridView = new System.Windows.Forms.DataGridView();
             this.storyTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshButton = new System.Windows.Forms.Button();
+            this.messageCheckTimer = new System.Windows.Forms.Timer(this.components);
+            this.messageTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.storyPictureBox)).BeginInit();
@@ -113,14 +115,14 @@ namespace Proanima_Messenger.Presentation_Leyar
             // profileToolStripMenuItem
             // 
             this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            this.profileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.profileToolStripMenuItem.Text = "Profile";
             this.profileToolStripMenuItem.Click += new System.EventHandler(this.profileToolStripMenuItem_Click);
             // 
             // logOutToolStripMenuItem
             // 
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.logOutToolStripMenuItem.Text = "Log Out";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
             // 
@@ -307,6 +309,7 @@ namespace Proanima_Messenger.Presentation_Leyar
             this.messageButton.TabIndex = 40;
             this.messageButton.Text = "Message";
             this.messageButton.UseVisualStyleBackColor = false;
+            this.messageButton.Click += new System.EventHandler(this.messageButton_Click);
             // 
             // messageTextBox
             // 
@@ -357,6 +360,14 @@ namespace Proanima_Messenger.Presentation_Leyar
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = false;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
+            // messageCheckTimer
+            // 
+            this.messageCheckTimer.Tick += new System.EventHandler(this.messageCheckTimer_Tick);
+            // 
+            // messageTimer
+            // 
+            this.messageTimer.Tick += new System.EventHandler(this.messageTimer_Tick);
             // 
             // HomePage
             // 
@@ -429,5 +440,7 @@ namespace Proanima_Messenger.Presentation_Leyar
         private System.Windows.Forms.DataGridView connectionsDataGridView;
         private System.Windows.Forms.Timer storyTimer;
         private System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.Timer messageCheckTimer;
+        private System.Windows.Forms.Timer messageTimer;
     }
 }

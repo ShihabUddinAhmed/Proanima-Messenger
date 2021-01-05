@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication Layer\ChattingWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Communication Layer\ChattingWindow.Designer.cs">
+      <DependentUpon>ChattingWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data Access Layar\DataAccess.cs" />
     <Compile Include="Entities\PublicProfile.cs" />
     <Compile Include="Entities\Story.cs" />
@@ -83,6 +89,9 @@
     <Compile Include="Presentation Leyar\SignUp.Designer.cs">
       <DependentUpon>SignUp.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Communication Layer\ChattingWindow.resx">
+      <DependentUpon>ChattingWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation Leyar\HomePage.resx">
       <DependentUpon>HomePage.cs</DependentUpon>
     </EmbeddedResource>
