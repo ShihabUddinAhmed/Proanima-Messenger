@@ -102,6 +102,14 @@ namespace Proanima_Messenger.Communication_Layer
             Application.Exit();
         }
 
+        private void sendTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                sendButton.PerformClick();
+            }
+        }
+
         private void sendButton_Click(object sender, EventArgs e)
         {
             try
@@ -143,6 +151,7 @@ namespace Proanima_Messenger.Communication_Layer
 
                 messageListBox.Items.Add(messageLabel.Text + ": " + receivedMessage);
                 socket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointRemote, new AsyncCallback(MessageCallBack), buffer);
+                
             }
             catch(Exception exc)
             {

@@ -63,6 +63,7 @@ namespace Proanima_Messenger.Communication_Layer
             this.sendTextBox.Name = "sendTextBox";
             this.sendTextBox.Size = new System.Drawing.Size(766, 96);
             this.sendTextBox.TabIndex = 37;
+            this.sendTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sendTextBox_KeyDown);
             // 
             // sendButton
             // 
@@ -133,14 +134,14 @@ namespace Proanima_Messenger.Communication_Layer
             // backToolStripMenuItem
             // 
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(123, 26);
             this.backToolStripMenuItem.Text = "Back";
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
