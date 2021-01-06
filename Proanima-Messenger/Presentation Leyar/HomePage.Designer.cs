@@ -386,6 +386,7 @@ namespace Proanima_Messenger.Presentation_Leyar
             this.Controls.Add(this.storyPictureBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HomePage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home Page";

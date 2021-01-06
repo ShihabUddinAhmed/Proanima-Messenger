@@ -361,6 +361,7 @@ namespace Proanima_Messenger.Presentation_Leyar
             this.Controls.Add(this.changePhotoButton);
             this.Controls.Add(this.profilePictureBox);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Profile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Profile";

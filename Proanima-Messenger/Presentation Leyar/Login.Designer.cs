@@ -141,6 +141,7 @@ namespace Proanima_Messenger
             this.Controls.Add(this.userNameTextBox);
             this.Controls.Add(this.loginButton);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Proanima";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

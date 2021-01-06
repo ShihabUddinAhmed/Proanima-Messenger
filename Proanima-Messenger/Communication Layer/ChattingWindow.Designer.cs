@@ -29,6 +29,7 @@ namespace Proanima_Messenger.Communication_Layer
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChattingWindow));
             this.messageListBox = new System.Windows.Forms.ListBox();
             this.sendTextBox = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
@@ -157,6 +158,7 @@ namespace Proanima_Messenger.Communication_Layer
             this.Controls.Add(this.sendTextBox);
             this.Controls.Add(this.messageListBox);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "ChattingWindow";
