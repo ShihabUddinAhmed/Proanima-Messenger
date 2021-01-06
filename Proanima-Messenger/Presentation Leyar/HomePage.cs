@@ -215,7 +215,7 @@ namespace Proanima_Messenger.Presentation_Leyar
             List<PublicProfile> users = new List<PublicProfile>();
             try
             {
-                string sql = "SELECT Name,UserName,ProfilePicture,Gender FROM Users WHERE Name LIKE '%" + userName + "%' AND UserID <>" + user.UserID;
+                string sql = "SELECT Name,UserName,ProfilePicture,Gender FROM Users WHERE Name LIKE '" + userName + "%' AND UserID <>" + user.UserID;
                 DataAccess dataAccess = new DataAccess();
                 SqlDataReader sqlDataReader = dataAccess.GetData(sql);
                 while (sqlDataReader.Read())
